@@ -8,8 +8,11 @@ var GAP = 50;
 var TEXT_HEIGHT = 32;
 var BAR_WIDTH = 40;
 var MAX_BAR_HEIGHT = 150;
+var SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
 var COLOR_RED = 'rgba(255, 0, 0, 1)';
 var COLOR_BLUE = 'rgba(0, 0, 255, 1)';
+var COLOR_BALACK = '#000';
+var COLOR_WHITE = '#fff';
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -29,11 +32,11 @@ var getMaxElement = function (arr) {
 };
 
 window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + 10, CLOUD_Y + 10, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
+  renderCloud(ctx, CLOUD_X + 10, CLOUD_Y + 10, SHADOW_COLOR);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, COLOR_WHITE);
 
   ctx.font = '16px "PT Mono"';
-  ctx.fillStyle = '#000';
+  ctx.fillStyle = COLOR_BALACK;
   ctx.fillText('Ура вы победили!', 150, 40);
   ctx.fillText('Список результатов:', 150, 57);
 
@@ -43,13 +46,13 @@ window.renderStatistics = function (ctx, players, times) {
     var xCoordinate = CLOUD_X + GAP + (BAR_WIDTH + GAP) * i;
     var proportion = MAX_BAR_HEIGHT * times[i] / maxTime;
 
-    ctx.fillStyle = players[i] === 'Вы'? COLOR_RED : COLOR_BLUE; 
+    ctx.fillStyle = players[i] === 'Вы' ? COLOR_RED : COLOR_BLUE;
 
     ctx.fillRect(xCoordinate, (CLOUD_Y + GAP + TEXT_HEIGHT) + (MAX_BAR_HEIGHT - proportion), BAR_WIDTH, proportion);
 
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = COLOR_BALACK;
 
     ctx.fillText(players[i], xCoordinate, CLOUD_HEIGHT);
-    ctx.fillText(Math.round(times[i]), xCoordinate, CLOUD_HEIGHT - GAP * 0.7 - MAX_BAR_HEIGHT * times[i] / maxTime);
+    ctx.fillText(Math.round(times[i]), xCoordinate, CLOUD_HEIGHT - GAP * 0.7 - proportion);
   }
 };
