@@ -44,15 +44,15 @@ window.renderStatistics = function (ctx, players, times) {
 
   for (var i = 0; i < players.length; i++) {
     var xCoordinate = CLOUD_X + GAP + (BAR_WIDTH + GAP) * i;
-    var proportion = MAX_BAR_HEIGHT * times[i] / maxTime;
+    var barHeight = MAX_BAR_HEIGHT * times[i] / maxTime;
 
     ctx.fillStyle = players[i] === 'Вы' ? COLOR_RED : COLOR_BLUE;
 
-    ctx.fillRect(xCoordinate, (CLOUD_Y + GAP + TEXT_HEIGHT) + (MAX_BAR_HEIGHT - proportion), BAR_WIDTH, proportion);
+    ctx.fillRect(xCoordinate, (CLOUD_Y + GAP + TEXT_HEIGHT) + (MAX_BAR_HEIGHT - barHeight), BAR_WIDTH, barHeight);
 
     ctx.fillStyle = COLOR_BALACK;
 
     ctx.fillText(players[i], xCoordinate, CLOUD_HEIGHT);
-    ctx.fillText(Math.round(times[i]), xCoordinate, CLOUD_HEIGHT - GAP * 0.7 - proportion);
+    ctx.fillText(Math.round(times[i]), xCoordinate, CLOUD_HEIGHT - GAP * 0.7 - barHeight);
   }
 };
