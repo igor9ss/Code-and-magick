@@ -8,6 +8,8 @@ var GAP = 50;
 var TEXT_HEIGHT = 32;
 var BAR_WIDTH = 40;
 var MAX_BAR_HEIGHT = 150;
+var COLOR_RED = 'rgba(255, 0, 0, 1)';
+var COLOR_BLUE = 'rgba(0, 0, 255, 1)';
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -38,16 +40,16 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
-    if (players[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      ctx.fillStyle = 'rgba(0, 0, 255, 1)';
-    }
-    ctx.fillRect(CLOUD_X + GAP + (BAR_WIDTH + GAP) * i, (CLOUD_Y + GAP + TEXT_HEIGHT) + (MAX_BAR_HEIGHT - ((MAX_BAR_HEIGHT * times[i]) / maxTime)), BAR_WIDTH, (MAX_BAR_HEIGHT * times[i]) / maxTime);
+    var xCoordinate = CLOUD_X + GAP + (BAR_WIDTH + GAP) * i;
+    var proportion = MAX_BAR_HEIGHT * times[i] / maxTime;
+
+    ctx.fillStyle = players[i] === 'Вы'? COLOR_RED : COLOR_BLUE; 
+
+    ctx.fillRect(xCoordinate, (CLOUD_Y + GAP + TEXT_HEIGHT) + (MAX_BAR_HEIGHT - proportion), BAR_WIDTH, proportion);
 
     ctx.fillStyle = '#000';
 
-    ctx.fillText(players[i], CLOUD_X + GAP + (BAR_WIDTH + GAP) * i, CLOUD_HEIGHT);
-    ctx.fillText(Math.round(times[i]), CLOUD_X + GAP + (BAR_WIDTH + GAP) * i, CLOUD_HEIGHT - GAP * 0.7 - MAX_BAR_HEIGHT * times[i] / maxTime);
+    ctx.fillText(players[i], xCoordinate, CLOUD_HEIGHT);
+    ctx.fillText(Math.round(times[i]), xCoordinate, CLOUD_HEIGHT - GAP * 0.7 - MAX_BAR_HEIGHT * times[i] / maxTime);
   }
 };
