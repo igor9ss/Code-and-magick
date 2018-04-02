@@ -10,9 +10,10 @@ var BAR_WIDTH = 40;
 var MAX_BAR_HEIGHT = 150;
 var SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
 var COLOR_RED = 'rgba(255, 0, 0, 1)';
-var COLOR_BLUE = 'rgba(0, 0, 255, 1)';
 var COLOR_BALACK = '#000';
 var COLOR_WHITE = '#fff';
+var COEFFICIENT = 0.7;
+var SHADOW_OFFSET = 10;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -32,7 +33,7 @@ var getMaxElement = function (arr) {
 };
 
 window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + 10, CLOUD_Y + 10, SHADOW_COLOR);
+  renderCloud(ctx, CLOUD_X + SHADOW_OFFSET, CLOUD_Y + SHADOW_OFFSET, SHADOW_COLOR);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, COLOR_WHITE);
 
   ctx.font = '16px "PT Mono"';
@@ -45,6 +46,14 @@ window.renderStatistics = function (ctx, players, times) {
   for (var i = 0; i < players.length; i++) {
     var xCoordinate = CLOUD_X + GAP + (BAR_WIDTH + GAP) * i;
     var barHeight = MAX_BAR_HEIGHT * times[i] / maxTime;
+    var randomInteger = function (min, max) {
+        var rand = min + Math.random() * (max + 1 - min);
+        rand = Math.floor(rand);
+        return rand;
+      }
+
+    var saturation = randomInteger (0, 100);
+    var COLOR_BLUE = 'hsl(240, ' + saturation + '%, 50%)';
 
     ctx.fillStyle = players[i] === 'Вы' ? COLOR_RED : COLOR_BLUE;
 
@@ -53,6 +62,6 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillStyle = COLOR_BALACK;
 
     ctx.fillText(players[i], xCoordinate, CLOUD_HEIGHT);
-    ctx.fillText(Math.round(times[i]), xCoordinate, CLOUD_HEIGHT - GAP * 0.7 - barHeight);
+    ctx.fillText(Math.round(times[i]), xCoordinate, CLOUD_HEIGHT - GAP * COEFFICIENT - barHeight);
   }
 };
