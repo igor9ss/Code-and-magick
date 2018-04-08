@@ -10,13 +10,13 @@ var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-var getObjects = function (MASS) {
+var getObjects = function () {
   for (var i = 0; i <= 3; i++) {
     MASS[i] = {
-      name:  WIZARD_NAMES[getRandomNumber(0, WIZARD_NAMES.length)] + ' ' + WIZARDS_SURNAME[getRandomNumber(0, WIZARDS_SURNAME.length)],
-      coatColor: WIZARDS_COATS_COLORS[getRandomNumber(0,WIZARDS_COATS_COLORS.length)],
+      name: WIZARD_NAMES[getRandomNumber(0, WIZARD_NAMES.length)] + ' ' + WIZARDS_SURNAME[getRandomNumber(0, WIZARDS_SURNAME.length)],
+      coatColor: WIZARDS_COATS_COLORS[getRandomNumber(0, WIZARDS_COATS_COLORS.length)],
       eyesColor: WIZARDS_EYES_COLOR[getRandomNumber(0, WIZARDS_EYES_COLOR.length)]
-    }
+    };
   }
   return MASS;
 };
