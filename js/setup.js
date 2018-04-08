@@ -1,6 +1,6 @@
 'use strict';
 
-var MASS = [];
+var mass = [];
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARDS_SURNAME = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARDS_COATS_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -12,13 +12,13 @@ var getRandomNumber = function (min, max) {
 
 var getObjects = function () {
   for (var i = 0; i <= 3; i++) {
-    MASS[i] = {
+    mass[i] = {
       name: WIZARD_NAMES[getRandomNumber(0, WIZARD_NAMES.length)] + ' ' + WIZARDS_SURNAME[getRandomNumber(0, WIZARDS_SURNAME.length)],
       coatColor: WIZARDS_COATS_COLORS[getRandomNumber(0, WIZARDS_COATS_COLORS.length)],
       eyesColor: WIZARDS_EYES_COLOR[getRandomNumber(0, WIZARDS_EYES_COLOR.length)]
     };
   }
-  return MASS;
+  return mass;
 };
 
 document.querySelector('.setup').classList.remove('hidden');
@@ -37,7 +37,7 @@ var renderVizard = function (wiz) {
 };
 
 for (var i = 0; i <= 3; i++) {
-  fragment.appendChild(renderVizard(getObjects(MASS)[i]));
+  fragment.appendChild(renderVizard(getObjects(mass)[i]));
 }
 document.querySelector('.setup-similar-list').appendChild(fragment);
 
