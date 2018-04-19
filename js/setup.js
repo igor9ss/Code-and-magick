@@ -5,6 +5,8 @@ var WIZARDS_SURNAME = ['да Марья', 'Верон', 'Мирабелла', '�
 var WIZARDS_COATS_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARDS_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 var FIRE_BALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 
 var generateRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
@@ -19,7 +21,7 @@ var generateWizardData = function () {
 };
 
 var createWizardElement = function (wizardData, template) {
-  var wizElement =  template.cloneNode(true);
+  var wizElement = template.cloneNode(true);
 
   wizElement.querySelector('.setup-similar-label').textContent = wizardData.name;
   wizElement.querySelector('.wizard-coat').style.fill = wizardData.coatColor;
@@ -28,6 +30,29 @@ var createWizardElement = function (wizardData, template) {
   return wizElement;
 };
 
+var openSetup = function () {
+  setupElement.classList.remove('hidden');
+
+  document.addEventListener('keydown', onEscPressAndInputNotActive);
+};
+
+var closeSetup = function () {
+  setupElement.classList.add('hidden');
+
+  document.removeEventListener('keydown', onEscPressAndInputNotActive);
+};
+
+var onEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeSetup();
+  }
+};
+
+var onEscPressAndInputNotActive = function (evt) {
+  if (document.activeElement !== usenNameInputField) {
+    onEscPress(evt);
+  }
+};
 
 var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var wizards = [];
@@ -51,37 +76,12 @@ var fireBallElement = document.querySelector('.setup-fireball-wrap');
 var vazardCoatElement = document.querySelector('.setup-player .wizard-coat');
 var fireBallInputField = fireBallElement.querySelector('input');
 
-
-var openSetup = function () {
-  setupElement.classList.remove('hidden');
-
-  document.addEventListener('keydown', onEscPressAndInputNotActive);
-};
-
-var closeSetup = function () {
-  setupElement.classList.add('hidden');
-
-  document.removeEventListener('keydown', onEscPressAndInputNotActive);
-};
-
-var onEscPress = function (evt) {
-  if (evt.keyCode == 27) {
-    closeSetup();
-  }
-};
-
-var onEscPressAndInputNotActive = function (evt) {
-  if (document.activeElement !== usenNameInputField) {
-      onEscPress(evt);
-  }
-};
-
 setupOpenElement.addEventListener('click', function () {
   openSetup();
 });
 
 setupOpenElement.addEventListener('keydown', function (evt) {
-  if (evt.keyCode == 13) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     openSetup();
   }
 });
@@ -91,7 +91,7 @@ setupCloseElement.addEventListener('click', function () {
 });
 
 setupCloseElement.addEventListener('keydown', function (evt) {
-  if (evt.keyCode == 13) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     closeSetup();
   }
 });
@@ -106,20 +106,5 @@ fireBallElement.addEventListener('click', function () {
 });
 
 vazardCoatElement.addEventListener('click', function () {
-  vazardCoatElement.style.fill = WIZARDS_COATS_COLORS[generateRandomNumber(0, 5)]
+  vazardCoatElement.style.fill = WIZARDS_COATS_COLORS[generateRandomNumber(0, 5)];
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
