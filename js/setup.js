@@ -105,11 +105,11 @@ wizardEyesElement.addEventListener('click', function () {
 });
 
 fireBallElement.addEventListener('click', function () {
-  fireBallElement.style.backgroundColor = FIRE_BALL_COLOR[generateRandomNumber(0, 4)];
-  fireBallInputField.value = fireBallElement.style.backgroundColor;
+  fireBallInputField.value = FIRE_BALL_COLOR[generateRandomNumber(0, 4)];
+  fireBallElement.style.backgroundColor = fireBallInputField.value;
 });
 
 wizardCoatElement.addEventListener('click', function () {
-  wizardCoatElement.style.fill = WIZARDS_COATS_COLORS[generateRandomNumber(0, 5)];
-  wizardCoatInputField.value = wizardCoatElement.style.fill;
+  wizardCoatInputField.value = WIZARDS_COATS_COLORS[generateRandomNumber(0, 5)];
+  wizardCoatElement.style.fill = wizardCoatInputField.value;
 });
